@@ -1,0 +1,77 @@
+class ArticlesController < ApplicationController
+  # Controller responsible for managing articles.
+
+  # GET /articles
+  # Fetches a list of articles in descending order by ID.
+  def index
+    @articles = Article.order('id DESC').all
+  end
+
+  # GET /articles/:id
+  # GET /articles/:slug
+  # Displays the details of a specific article.
+  # If a slug is provided, searches for the article by URL slug; otherwise, searches by ID.
+  def show
+    @article = params[:slug] ? Article.find_by!(url: params[:slug]) : Article.find(params[:id])
+  end
+
+  # GET /articles/new
+  # Initializes a new article object for creating a new article.
+  def new
+    @article = Article.new
+  end
+
+  # POST /articles
+  # Creates a new article with the provided parameters.
+  def create
+    if helpers.upload_image_if_exists(params[:article][:file])
+      params[:article][:preview_picture] = params[:article][:file].original_filename
+    end
+
+    @article = Article.new(article_params)
+
+    if @article.save
+      redirect_to @article
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  # GET /articles/:id/edit
+  # Displays the form to edit an existing article.
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  # PATCH/PUT /articles/:id
+  # Updates an existing article with the provided parameters.
+  def update
+    @article = Article.find(params[:id])
+
+    if !params[:article][:file].nil? && helpers.upload_image_if_exists(params[:article][:file])
+      params[:article][:preview_picture] = params[:article][:file].original_filename
+    end
+
+    if @article.update(article_params)
+      redirect_to news_path(slug: @article.url)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /articles/:id
+  # Deletes an existing article.
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to root_path, status: :see_other
+  end
+
+  private
+
+  # Strong parameters for article creation and update.
+  def article_params
+    params.require(:article).permit(:url, :title, :preview_picture, :body, :short_body, :publish_date)
+  end
+end

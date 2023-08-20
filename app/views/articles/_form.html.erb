@@ -1,0 +1,38 @@
+<div class="form-group my-3">
+  <%= form.label :url %><br>
+  <%= form.text_field :url, class: 'form-control' %>
+</div>
+
+<div class="form-group my-3">
+  <%= form.label :title %><br>
+  <%= form.text_field :title, class: 'form-control' %>
+  <% article.errors.full_messages_for(:title).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+</div>
+
+<div class="form-group my-3">
+  <%= form.label :preview_picture %><br>
+  <% if article.preview_picture %>
+    <%= image_tag '/storage/' + article.preview_picture, class: 'form-control', style: "width: auto" %>
+  <% end %>
+  <%= form.file_field :file, class: 'form-control' %>
+  <% article.errors.full_messages_for(:preview_picture).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+</div>
+
+<div class="form-group my-3">
+  <%= form.label :short_body %><br>
+  <%= form.text_area :short_body, class: 'form-control' %>
+</div>
+
+<div class="form-group my-3">
+  <%= form.label :body %><br>
+  <%= form.text_area :body, class: 'form-control' %>
+</div>
+
+<div class="form-group my-3">
+  <%= form.label :publish_date %><br>
+  <%= form.date_field :publish_date, class: 'form-control' %>
+</div>
