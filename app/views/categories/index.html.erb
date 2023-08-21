@@ -1,0 +1,9 @@
+<ul class="list-group">
+  <% @categories.each do |category| %>
+    <li class="list-group-item">
+      <a href="<%= edit_category_path(category) %>">
+        <%= category.title %> <%= (" | " unless category.description.empty?) + category.description %>
+      </a>
+    </li>
+  <% end %>
+</ul>

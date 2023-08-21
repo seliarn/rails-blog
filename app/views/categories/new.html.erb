@@ -1,0 +1,15 @@
+<h3>New Category</h3>
+
+<div class="row">
+  <div class="mx-5 col-12">
+    <%= form_with model: @category do |form| %>
+      <%= render "form", form: form, category: @category %>
+
+      <div>
+        <%= form.submit class: 'btn btn-success' %>
+        <a class="btn btn-secondary" href="<%= root_path %>">Cancel</a>
+      </div>
+
+  <% end %>
+  </div>
+</div>

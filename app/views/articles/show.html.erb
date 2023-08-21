@@ -2,6 +2,11 @@
   <h2 class="blog-post-title">
     <%= @article.title %>
   </h2>
+  <div>
+    <%@article.categories.each do |category| %>
+      <%= category.title %>
+    <% end %>
+  </div>
   <% if @article.preview_picture %>
     <div>
       <%= image_tag '/storage/' + @article.preview_picture,

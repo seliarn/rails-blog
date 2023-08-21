@@ -1,0 +1,14 @@
+<h3>Edit Category</h3>
+<div class="row">
+  <div class="mx-5 col-12">
+    <%= form_with scope: :category, url: category_path(@category), method: :patch do |form| %>
+      <%= render "form", form: form, category: @category %>
+
+      <div>
+        <%= form.submit class: 'btn btn-success' %>
+        <a class="btn btn-secondary" href="<%= category_path(@category) %>">Cancel</a>
+      </div>
+
+    <% end %>
+  </div>
+</div>

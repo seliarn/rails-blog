@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
   # Fetches a list of articles in descending order by ID.
   def index
     @articles = Article.order('id DESC').all
+    @categories = Category.all
   end
 
   # GET /articles/:id
@@ -18,7 +19,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   # Initializes a new article object for creating a new article.
   def new
-    @article = Article.new
+    @article = Article.new(:categories => Category.all)
   end
 
   # POST /articles
@@ -53,7 +54,7 @@ class ArticlesController < ApplicationController
     end
 
     if @article.update(article_params)
-      redirect_to news_path(slug: @article.url)
+      redirect_to post_path(slug: @article.url)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -72,6 +73,6 @@ class ArticlesController < ApplicationController
 
   # Strong parameters for article creation and update.
   def article_params
-    params.require(:article).permit(:url, :title, :preview_picture, :body, :short_body, :publish_date)
+    params.require(:article).permit(:url, :title, :preview_picture, :body, :short_body, :publish_date, category_ids: [])
   end
 end
