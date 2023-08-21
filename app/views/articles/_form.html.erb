@@ -13,14 +13,8 @@
 </div>
 
 <div class="form-group my-3">
-
   <%= form.label :category_ids %><br>
-  <%#= form.select :category_ids, Category.all.collect {|x| [x.title, x.id]}, {}, :multiple => true, class: 'form-control' %>
   <%= form.collection_select :category_ids, Category.all, :id, :title, {}, { multiple: true, class: 'form-control' } %>
-  <%#= form.collection_select(:article, :category_ids, Category.all, :id, :title, prompt: true ) %>
-
-
-
 </div>
 
 <div class="form-group my-3">
@@ -36,7 +30,11 @@
 
 <div class="form-group my-3">
   <%= form.label :short_body %><br>
+  <% article.errors.full_messages_for(:short_body).each do |message| %>
+    <div class="alert alert-danger" role="alert"><%= message %></div>
+  <% end %>
   <%= form.text_area :short_body, class: 'form-control' %>
+
 </div>
 
 <div class="form-group my-3">

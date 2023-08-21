@@ -25,7 +25,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to @category
+      redirect_to categories_path
     else
       render :new, status: :unprocessable_entity
     end
