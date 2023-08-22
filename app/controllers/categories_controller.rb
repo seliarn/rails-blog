@@ -10,7 +10,8 @@ class CategoriesController < ApplicationController
   # GET /categories/:id
   # Displays the details of a specific category.
   def show
-    @articles = Category.find(params[:id]).articles
+    @category = Category.find(params[:id])
+    @articles = @category.articles
   end
 
   # GET /categories/new
