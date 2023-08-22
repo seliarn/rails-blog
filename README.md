@@ -7,20 +7,23 @@ For deploy this project you should do these steps:
 1. Install Ruby (prefer 3.2.2 version) following guide https://www.ruby-lang.org/en/documentation/installation/
 2. Install PostgreSQL following guide https://www.postgresql.org/download/
 3. Install Node and NPM https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-3. Create new user and database:
+4. Create new user and database:
 
    `$ sudo -u postgres createuser <username>`
 
    `$ sudo -u postgres createdb <dbname>`
 
-4. Setup connection to the DB server in config/database.yml
-5. Execute migrations: 
+5. Setup connection to the DB server in **config/database.yml**
+6. Execute migrations: 
 
-    `db:migrate`
-6. Build project:
+    `rails db:migrate`
 
-`npm build`
-7. Start the Rails server:
+7. Build project:
 
-     `bin/rails server`
-8. Open in your browser http://127.0.0.1:3000/
+   `npm build`
+
+8. Start the Rails server:
+
+     `rails server`
+
+9. Open in your browser http://127.0.0.1:3000/
