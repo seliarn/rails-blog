@@ -37,22 +37,24 @@
   </div>
 </div>
 
-<hr>
-<div class="row mb-5">
-  <div class="col-1 offset-9">
-    <%= link_to "Edit", edit_article_path(@article), { role: 'button', class: 'btn btn-primary' } %>
-  </div>
+<% if user_signed_in? %>
+  <hr>
+  <div class="row mb-5">
+    <div class="col-1 offset-9">
+      <%= link_to "Edit", edit_article_path(@article), { role: 'button', class: 'btn btn-primary' } %>
+    </div>
 
-  <div class="col-1 offset-1">
-    <%= link_to "Delete",
-                article_path(@article),
-                {
-                  data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?",
-                  },
-                  role: 'button', class: 'btn btn-danger'
-                }
-    %>
+    <div class="col-1 offset-1">
+      <%= link_to "Delete",
+                  article_path(@article),
+                  {
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?",
+                    },
+                    role: 'button', class: 'btn btn-danger'
+                  }
+      %>
+    </div>
   </div>
-</div>
+<% end %>

@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   # Controller responsible for managing articles.
+  before_action :authenticate_user!, except: [:show, :index]
 
   # GET /articles
   # Fetches a list of articles in descending order by ID.
