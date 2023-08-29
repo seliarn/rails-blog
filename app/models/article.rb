@@ -1,9 +1,7 @@
 class Article < ApplicationRecord
   validates :title, presence: true
-  # validates :short_body, length: { maximum: 150 }
-  # has_many :article_category
-  # has_many :category, through: :article_category
   has_and_belongs_to_many :categories
+  belongs_to :author, class_name: 'User', foreign_key: :user_id
 
   before_validation do
     self.url = self.title.parameterize if self.url.blank?
