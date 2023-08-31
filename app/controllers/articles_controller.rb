@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   load_and_authorize_resource
 
-  # GET /articles
+  # GET /
   # Fetches a list of articles in descending order by ID.
   def index
     @articles = Article.order('id DESC').all
