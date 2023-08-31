@@ -13,7 +13,7 @@ module ArticlesHelper
   # @param file [ActionDispatch::Http::UploadedFile] The uploaded file to be checked and uploaded.
   # @return [String] The original filename of the uploaded image if it was successfully uploaded; otherwise, `nil`.
   def upload_image_if_exists(file)
-    unless file.blank? && is_image(file.content_type)
+    if !file.blank? && is_image(file.content_type)
       filepath = Rails.root.join("storage").to_s + '/' + file.original_filename
       File.open(filepath, 'wb') do |f|
         f.write file.read

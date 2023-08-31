@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   # GET /articles/:id
-  # GET /articles/:slug
+  # GET /post/:slug
   # Displays the details of a specific article.
   # If a slug is provided, searches for the article by URL slug; otherwise, searches by ID.
   def show

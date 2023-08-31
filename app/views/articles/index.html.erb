@@ -1,27 +1,28 @@
 <div class="jumbotron my-3 p-3 p-md-5 text-white rounded bg-dark">
   <div class="row">
-    < class="col-8">
-    <h1 class="display-5"><%= @articles[0].title %></h1>
-    <% unless @articles[0].short_body.blank? %>
-      <p class="lead"><%= @articles[0].short_body %></p>
-    <% end %>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg"
-         href="<%= post_path(slug: @articles[0].url) %>"
-         role="button">
-        Learn more
-      </a>
-    </p>
-  </div>
-
-  <% unless @articles[0].preview_picture.blank? %>
-    <div class="col-4">
-      <img class=""
-           alt="<%= @articles[0].title %>"
-           style="width: 400px;"
-           src="<%= '/storage/' + @articles[0].preview_picture %>" data-holder-rendered="true">
+    <div class="col-8">
+      <h1 class="display-5"><%= @articles[0].title %></h1>
+      <% unless @articles[0].short_body.blank? %>
+        <p class="lead"><%= @articles[0].short_body %></p>
+      <% end %>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg"
+           href="<%= post_path(slug: @articles[0].url) %>"
+           role="button">
+          Learn more
+        </a>
+      </p>
     </div>
-  <% end %>>
+
+    <% unless @articles[0].preview_picture.blank? %>
+      <div class="col-4">
+        <img class=""
+             alt="<%= @articles[0].title %>"
+             style="width: 400px;"
+             src="<%= '/storage/' + @articles[0].preview_picture %>" data-holder-rendered="true">
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <div class="row">
