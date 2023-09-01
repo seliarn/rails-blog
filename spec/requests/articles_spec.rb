@@ -1,18 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Articles", type: :request do
-  current_user = User.first_or_create(
-    id: 1,
-    email: 'testreq@example.com',
-    password: '123456'
-  )
-
-  article = Article.first_or_create(
-    id: 1,
-    title: "Test title",
-    author: current_user,
-    user_id: current_user.id
-  )
+  let(:current_user) { create(:user) }
+  let(:article) { create(:article, author: current_user) }
 
   describe "GET /" do
     it "Index page opened" do
@@ -95,7 +85,7 @@ RSpec.describe "Articles", type: :request do
         post articles_path, params: {
           article: {
             title: 'created article',
-            user_id: current_user.id
+            # user_id: current_user.id # WARN: user_id is not permitted, this is security issue
           }
         }
       end.to change(Article, :count).by(1)
@@ -103,20 +93,18 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe 'PATCH /articles/:id' do
+    let(:new_title) { 'new patched article title' }
     it 'Update Article' do
       sign_in current_user
 
-      old_article = Article.first
-      old_title = old_article.title
-      patch article_path(old_article), params: {
-        article: {
-          title: 'new patched article title',
-          user_id: current_user.id
+      expect do
+        patch article_path(article), params: {
+          article: {
+            title: new_title,
+              # user_id: current_user.id # WARN: user_id is not permitted, this is security issue
+          }
         }
-      }
-      old_article.reload
-
-      expect(old_article.title).to_not eq(old_title)
+      end.to change(Article, :count).by(0).and change{ article.reload.title }.to(new_title)
     end
   end
 end

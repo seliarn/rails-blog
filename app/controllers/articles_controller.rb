@@ -31,7 +31,8 @@ class ArticlesController < ApplicationController
       params[:article][:preview_picture] = params[:article][:file].original_filename
     end
 
-    @article = Article.new(article_params)
+    # HERE WAS SECURITY ISSUE
+    @article = current_user.articles.new(article_params)
 
     if @article.save
       redirect_to @article
@@ -49,7 +50,8 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/:id
   # Updates an existing article with the provided parameters.
   def update
-    @article = Article.find(params[:id])
+    #
+    @article = current_user.articles.find(params[:id])
 
     if !params[:article][:file].nil? && helpers.upload_image_if_exists(params[:article][:file])
       params[:article][:preview_picture] = params[:article][:file].original_filename

@@ -6,6 +6,7 @@ class Article < ApplicationRecord
   SHOR_BODY_LENGTH = 150
 
   after_initialize do
+    # WARN: BAD PRACTICE!
     self.url = self.title.parameterize if !self.title.blank? && self.url.blank?
     self.short_body = self.short_body.truncate(SHOR_BODY_LENGTH) unless self.short_body.blank?
   end
