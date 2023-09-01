@@ -8,7 +8,7 @@ env:
   DB_NAME: blog_test
   DB_USERNAME: app
   DB_PASSWORD: '1234'
-  POSTGRES_HOST_AUTH_METHOD: trust
+  # POSTGRES_HOST_AUTH_METHOD: trust
 
 jobs:
   rspec:
@@ -40,4 +40,5 @@ jobs:
           bundler-cache: true
       - name: Run tests
         run: |
+          bundle exec rails db:setup
           bundle exec rspec
