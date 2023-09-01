@@ -40,6 +40,8 @@ jobs:
           bundler-cache: true
       - name: "Install Node.js"
         uses: actions/setup-node@v1
+        with:
+          node-version: 16
       - name: "Compile Assets"
         shell: bash
         run: |
