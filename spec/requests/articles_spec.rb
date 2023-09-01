@@ -15,14 +15,14 @@ RSpec.describe "Articles", type: :request do
   )
 
   describe "GET /" do
-    it "index page opened" do
+    it "Index page opened" do
       get root_path
       expect(response).to have_http_status(200)
     end
   end
 
   describe "GET /articles/:id" do
-    it "get a successful show page by id" do
+    it "Get a successful show page by id" do
       get articles_path(article)
 
       expect(response).to be_successful
@@ -30,13 +30,13 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "GET /post/:slug" do
-    it "get a successful show page by slug" do
+    it "Get a successful show page by slug" do
       get post_path(slug: article.url)
 
       expect(response).to be_successful
     end
 
-    it "get a 404 page by wrong slug" do
+    it "Get a 404 page by wrong slug" do
       expect {
         get post_path(slug: 'wrong-page-url')
       }.to raise_error(ActiveRecord::RecordNotFound)
@@ -44,17 +44,17 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe 'Guest redirects' do
-    it 'redirect from new article page to sign in for guests' do
+    it 'Redirect from new article page to sign in for guests' do
       get new_article_path
       expect(response).to have_http_status(302)
     end
 
-    it 'redirect from edit article page to sign in for guests' do
+    it 'Redirect from edit article page to sign in for guests' do
       get edit_article_path(article)
       expect(response).to have_http_status(302)
     end
 
-    it 'ignore POST request and redirect to sign_in for guests' do
+    it 'Ignore POST request and redirect to sign_in for guests' do
       post articles_path, params: {
         title: article.title + '_created'
       }
@@ -62,7 +62,7 @@ RSpec.describe "Articles", type: :request do
       expect(response).to have_http_status(302)
     end
 
-    it 'ignore PATCH request and redirect to sign_in for guests' do
+    it 'Ignore PATCH request and redirect to sign_in for guests' do
       patch article_path(article), params: {
         title: article.title + '_patched'
       }
@@ -72,7 +72,7 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe 'GET /new' do
-    it 'get a successful creating article page' do
+    it 'Get a successful creating article page' do
       sign_in current_user
       get new_article_path
       expect(response).to be_successful
@@ -80,7 +80,7 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe 'GET /articles/:id/edit' do
-    it 'render a successful response' do
+    it 'Render a successful response' do
       sign_in current_user
       get edit_article_path(article)
       expect(response).to be_successful
@@ -88,7 +88,7 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe 'POST /articles' do
-    it 'creates a new Article' do
+    it 'Create a new Article' do
       sign_in current_user
 
       expect do
@@ -103,7 +103,7 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe 'PATCH /articles/:id' do
-    it 'creates a new Article' do
+    it 'Update Article' do
       sign_in current_user
 
       old_article = Article.first

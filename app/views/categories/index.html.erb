@@ -3,7 +3,7 @@
   <% @categories.each do |category| %>
     <li class="list-group-item">
       <a href="<%= (Ability.new(current_user).can? :manage, Category) ? edit_category_path(category) : category_path(category) %>">
-        <%= category.title %> <%= (" | " + category.description) unless category.description.empty? %>
+        <%= category.title %> <%= (" | " + category.description) unless category.description.blank? %>
       </a>
     </li>
   <% end %>

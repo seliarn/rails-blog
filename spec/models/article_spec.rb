@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Article, type: :model do
-  current_user = User.first_or_create!(email: 'test@example.com', password: 'password', password_confirmation: 'password')
-
   it "Empty article is invalid" do
     article = Article.new
     expect(article).to be_invalid
