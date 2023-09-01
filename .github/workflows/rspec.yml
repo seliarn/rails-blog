@@ -8,7 +8,7 @@ env:
   DB_NAME: blog_test
   DB_USERNAME: app
   DB_PASSWORD: '1234'
-
+  POSTGRES_HOST_AUTH_METHOD: trust
 
 jobs:
   rspec:
@@ -21,9 +21,7 @@ jobs:
           POSTGRES_USER: app
           POSTGRES_PASSWORD: '1234'
         ports:
-        # will assign a random free host port
-        - 5432/tcp
-        # Set health checks to wait until postgres has started
+        - 5432:5432
         options: >-
           --mount type=tmpfs,destination=/var/lib/postgresql/data
           --health-cmd pg_isready
