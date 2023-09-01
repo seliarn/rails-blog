@@ -46,7 +46,7 @@ jobs:
         shell: bash
         run: |
           npm install
-          yarn build:css
+          yarn build
 
       - name: Run tests
         run: |
