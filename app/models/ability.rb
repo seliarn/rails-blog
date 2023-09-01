@@ -32,7 +32,10 @@ class Ability
     # can :update, Article, user: user
 
     can :read, Article
+    can :read, Category
     return unless user.present?
     can :manage, Article, user_id: user.id
+    can :manage, Category
+
   end
 end

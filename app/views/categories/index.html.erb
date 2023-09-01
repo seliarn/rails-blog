@@ -2,11 +2,13 @@
 <ul class="list-group">
   <% @categories.each do |category| %>
     <li class="list-group-item">
-      <a href="<%= edit_category_path(category) %>">
+      <a href="<%= (Ability.new(current_user).can? :manage, Category) ? edit_category_path(category) : category_path(category) %>">
         <%= category.title %> <%= (" | " + category.description) unless category.description.empty? %>
       </a>
     </li>
   <% end %>
 </ul>
 <br/>
-<%=link_to "Create new category", new_category_path, class: "btn btn-primary" %>
+<% if Ability.new(current_user).can? :manage, Category %>
+  <%= link_to "Create new category", new_category_path, class: "btn btn-primary" %>
+<% end %>
