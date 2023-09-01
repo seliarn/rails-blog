@@ -43,7 +43,8 @@ jobs:
       - name: "Compile Assets"
         shell: bash
         run: |
-            yarn build:css
+          npm install
+          yarn build:css
 
       - name: Run tests
         run: |
