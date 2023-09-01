@@ -6,8 +6,8 @@ env:
   RAILS_ENV: test
   DB_HOST: 127.0.0.1
   DB_NAME: blog_test
-  DB_USERNAME: app
-  DB_PASSWORD: '1234'
+  DB_USER: app
+  DB_PASS: '1234'
   # POSTGRES_HOST_AUTH_METHOD: trust
 
 jobs:
