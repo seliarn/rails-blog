@@ -38,6 +38,13 @@ jobs:
           ruby-version: 3.2
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
+      - name: "Install Node.js"
+        uses: actions/setup-node@v1
+      - name: "Compile Assets"
+        shell: bash
+        run: |
+            yarn build:css
+
       - name: Run tests
         run: |
           bundle exec rails db:setup
