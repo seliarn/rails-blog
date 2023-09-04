@@ -1,7 +1,9 @@
 class ArticlesController < ApplicationController
   # Controller responsible for managing articles.
+  before_action :authenticate_user!, except: [:show, :index]
+  load_and_authorize_resource
 
-  # GET /articles
+  # GET /
   # Fetches a list of articles in descending order by ID.
   def index
     @articles = Article.order('id DESC').all
@@ -9,7 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   # GET /articles/:id
-  # GET /articles/:slug
+  # GET /post/:slug
   # Displays the details of a specific article.
   # If a slug is provided, searches for the article by URL slug; otherwise, searches by ID.
   def show
@@ -29,7 +31,8 @@ class ArticlesController < ApplicationController
       params[:article][:preview_picture] = params[:article][:file].original_filename
     end
 
-    @article = Article.new(article_params)
+    # HERE WAS SECURITY ISSUE
+    @article = current_user.articles.new(article_params)
 
     if @article.save
       redirect_to @article
@@ -47,7 +50,8 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/:id
   # Updates an existing article with the provided parameters.
   def update
-    @article = Article.find(params[:id])
+    #
+    @article = current_user.articles.find(params[:id])
 
     if !params[:article][:file].nil? && helpers.upload_image_if_exists(params[:article][:file])
       params[:article][:preview_picture] = params[:article][:file].original_filename

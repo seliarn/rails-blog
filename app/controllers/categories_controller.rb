@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
   # Controller responsible for managing categories.
+  before_action :authenticate_user!, except: [:show, :index]
+  load_and_authorize_resource
 
   # GET /categories
   # Fetches a list of categories in descending order by ID.
