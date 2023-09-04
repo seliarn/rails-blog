@@ -17,14 +17,14 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-10">
+  <div class="col-6">
     <div>
       <%= @article.categories.map { |category| category.title }.join(', ') %>
     </div>
   </div>
-  <div class="col-2">
-    <div class="blog-post-meta fst-italic">
-      <%= @article.publish_date %>
+  <div class="col-6">
+    <div class="blog-post-meta fst-italic text-end">
+      <%= @article.publish_date.to_s + ', by ' + @article.author.email %>
     </div>
   </div>
 </div>
@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<% if user_signed_in? %>
+<% if user_signed_in? && (Ability.new(current_user).can? :manage, @article) %>
   <hr>
   <div class="row mb-5">
     <div class="col-1 offset-9">
