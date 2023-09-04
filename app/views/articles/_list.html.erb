@@ -21,7 +21,7 @@
           Continue reading
         </a>
       </div>
-      <% if article.preview_picture %>
+      <% unless article.preview_picture.blank? %>
         <div>
           <img class="card-img-right flex-auto d-none d-md-block"
                alt="<%= article.title %>" style="width: 200px; height: 200px"
