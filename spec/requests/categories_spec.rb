@@ -1,16 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Categories", type: :request do
-  current_user = User.first_or_create(
-    id: 1,
-    email: 'testreq@example.com',
-    password: '123456'
-  )
 
-  category = Category.first_or_create(
-    id: 1,
-    title: "Test category"
-  )
+  let(:current_user) { create(:user) }
+  let(:category) { create(:category) }
 
   describe "GET /categories" do
     it "Categories list page" do
