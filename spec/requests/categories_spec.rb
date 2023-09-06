@@ -79,19 +79,17 @@ RSpec.describe "Categories", type: :request do
   end
 
   describe 'PATCH /categories/:id' do
+    let(:new_title) { 'new patched category title' }
     it 'Update category' do
       sign_in current_user
 
-      old_category = Category.first
-      old_title = old_category.title
-      patch category_path(old_category), params: {
-        category: {
-          title: 'new patched category title',
+      expect do
+        patch category_path(category), params: {
+          category: {
+            title: new_title,
+          }
         }
-      }
-      old_category.reload
-
-      expect(old_category.title).to_not eq(old_title)
+      end.to change(Category, :count).by(0).and change { category.reload.title }.to(new_title)
     end
   end
 end
