@@ -14,7 +14,7 @@ RSpec.describe "Categories", type: :request do
 
   describe "GET /categories/:id" do
     it "Get a successful category show page by id" do
-      get categories_path(category)
+      get category_path(category)
 
       expect(response).to be_successful
     end

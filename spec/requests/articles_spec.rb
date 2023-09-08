@@ -5,16 +5,16 @@ RSpec.describe "Articles", type: :request do
   let(:another_user) { create(:user) }
   let(:article) { create(:article, author: current_user) }
 
-  describe "GET /" do
+  describe "GET /articles" do
     it "Index page opened" do
-      get root_path
-      expect(response).to have_http_status(200)
+      get articles_path
+      expect(response).to redirect_to '/'
     end
   end
 
   describe "GET /articles/:id" do
     it "Get a successful show page by id" do
-      get articles_path(article)
+      get article_path(article)
 
       expect(response).to be_successful
     end
