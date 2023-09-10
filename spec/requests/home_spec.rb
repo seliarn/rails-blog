@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Application", type: :request do
+RSpec.describe "Home", type: :request do
   describe "GET /" do
     it "Index page opened" do
       get root_path
