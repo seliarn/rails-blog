@@ -33,7 +33,7 @@
   <% article.errors.full_messages_for(:short_body).each do |message| %>
     <div class="alert alert-danger" role="alert"><%= message %></div>
   <% end %>
-  <%= form.text_area :short_body, class: 'form-control' %>
+  <%= form.text_area :short_body, maxlength: Article::SHOR_BODY_LENGTH, class: 'form-control character-counter--js' %>
 
 </div>
 

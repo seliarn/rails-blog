@@ -2,18 +2,19 @@ require 'rails_helper'
 
 RSpec.describe "Articles", type: :request do
   let(:current_user) { create(:user) }
+  let(:another_user) { create(:user) }
   let(:article) { create(:article, author: current_user) }
 
-  describe "GET /" do
+  describe "GET /articles" do
     it "Index page opened" do
-      get root_path
-      expect(response).to have_http_status(200)
+      get articles_path
+      expect(response).to redirect_to '/'
     end
   end
 
   describe "GET /articles/:id" do
     it "Get a successful show page by id" do
-      get articles_path(article)
+      get article_path(article)
 
       expect(response).to be_successful
     end
@@ -85,7 +86,6 @@ RSpec.describe "Articles", type: :request do
         post articles_path, params: {
           article: {
             title: 'created article',
-            # user_id: current_user.id # WARN: user_id is not permitted, this is security issue
           }
         }
       end.to change(Article, :count).by(1)
@@ -101,10 +101,21 @@ RSpec.describe "Articles", type: :request do
         patch article_path(article), params: {
           article: {
             title: new_title,
-              # user_id: current_user.id # WARN: user_id is not permitted, this is security issue
           }
         }
-      end.to change(Article, :count).by(0).and change{ article.reload.title }.to(new_title)
+      end.to change(Article, :count).by(0).and change { article.reload.title }.to(new_title)
+    end
+
+    it 'Try to update article not owned by current_user' do
+      sign_in another_user
+
+      expect do
+        patch article_path(article), params: {
+          article: {
+            title: new_title,
+          }
+        }
+      end.to raise_error(CanCan::AccessDenied)
     end
   end
 end

@@ -1,16 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Categories", type: :request do
-  current_user = User.first_or_create(
-    id: 1,
-    email: 'testreq@example.com',
-    password: '123456'
-  )
 
-  category = Category.first_or_create(
-    id: 1,
-    title: "Test category"
-  )
+  let(:current_user) { create(:user) }
+  let(:category) { create(:category) }
 
   describe "GET /categories" do
     it "Categories list page" do
@@ -21,7 +14,7 @@ RSpec.describe "Categories", type: :request do
 
   describe "GET /categories/:id" do
     it "Get a successful category show page by id" do
-      get categories_path(category)
+      get category_path(category)
 
       expect(response).to be_successful
     end
@@ -86,19 +79,17 @@ RSpec.describe "Categories", type: :request do
   end
 
   describe 'PATCH /categories/:id' do
+    let(:new_title) { 'new patched category title' }
     it 'Update category' do
       sign_in current_user
 
-      old_category = Category.first
-      old_title = old_category.title
-      patch category_path(old_category), params: {
-        category: {
-          title: 'new patched category title',
+      expect do
+        patch category_path(category), params: {
+          category: {
+            title: new_title,
+          }
         }
-      }
-      old_category.reload
-
-      expect(old_category.title).to_not eq(old_title)
+      end.to change(Category, :count).by(0).and change { category.reload.title }.to(new_title)
     end
   end
 end
